@@ -1,8 +1,14 @@
 package day4
 
 import org.junit.Test
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
 import parsePassport
+import validateBirthYear
+import validateEyeColor
+import validateHairColor
+import validateHeight
+import validatePassportId
 
 internal class Day4KtTest {
 
@@ -36,5 +42,147 @@ internal class Day4KtTest {
         val passport = parsePassport(line)
 
         assertFalse(passport.isValid())
+    }
+
+    @Test
+    fun birth_year_is_not_valid_if_null() {
+        val birthYear = null
+        val valid = validateBirthYear(birthYear)
+
+        assertFalse(valid)
+    }
+
+    @Test
+    fun birth_year_is_valid_if_is_in_range() {
+        val birthYear = "2002"
+        val valid = validateBirthYear(birthYear)
+
+        assertTrue(valid)
+    }
+
+    @Test
+    fun birth_year_is_not_valid_if_is_not_in_range() {
+        val birthYear = "2003"
+        val valid = validateBirthYear(birthYear)
+
+        assertFalse(valid)
+    }
+
+    @Test
+    fun height_is_not_valid_if_null() {
+        val height = null
+        val valid = validateHeight(height)
+
+        assertFalse(valid)
+    }
+
+    @Test
+    fun height_is_valid_if_length_is_in_range() {
+        val heightInCms = "190cm"
+        val heightInInches = "60in"
+        val validInCms = validateHeight(heightInCms)
+        val validInInches = validateHeight(heightInInches)
+
+        assertTrue(validInCms)
+        assertTrue(validInInches)
+    }
+
+    @Test
+    fun height_is_not_valid_if_is_not_in_range() {
+        val heightInCms = "22cm"
+        val heightInInches = "190in"
+        val validInCms = validateHeight(heightInCms)
+        val validInInches = validateHeight(heightInInches)
+
+        assertFalse(validInCms)
+        assertFalse(validInInches)
+    }
+
+    @Test
+    fun height_is_not_valid_if_has_not_magnitude() {
+        val height = "190"
+        val valid = validateHeight(height)
+
+        assertFalse(valid)
+    }
+
+    @Test
+    fun hair_color_is_not_valid_if_null() {
+        val hairColor = null
+        val valid = validateHairColor(hairColor)
+
+        assertFalse(valid)
+    }
+
+    @Test
+    fun hair_color_is_valid_if_in_range() {
+        val hairColor = "#123abc"
+        val valid = validateHairColor(hairColor)
+
+        assertTrue(valid)
+    }
+
+    @Test
+    fun hair_color_is_not_valid_if_character_is_not_in_range() {
+        val hairColor = "123abz"
+        val valid = validateHairColor(hairColor)
+
+        assertFalse(valid)
+    }
+
+    @Test
+    fun hair_color_is_not_valid_if_missing_hash() {
+        val hairColor = "123abc"
+        val valid = validateHairColor(hairColor)
+
+        assertFalse(valid)
+    }
+
+    @Test
+    fun eye_color_is_not_valid_if_null() {
+        val eyeColor = null
+        val valid = validateEyeColor(eyeColor)
+
+        assertFalse(valid)
+    }
+
+    @Test
+    fun eye_color_is_valid_if_in_range() {
+        val eyeColor = "brn"
+        val valid = validateEyeColor(eyeColor)
+
+        assertTrue(valid)
+    }
+
+    @Test
+    fun eye_color_is_not_valid_if_is_not_in_range() {
+        val eyeColor = "wat"
+        val valid = validateEyeColor(eyeColor)
+
+        assertFalse(valid)
+    }
+
+    @Test
+    fun passport_id_is_not_valid_if_null() {
+        val passportId = null
+        val valid = validatePassportId(passportId)
+
+        assertFalse(valid)
+    }
+
+    @Test
+    fun passport_id_is_valid_if_in_range() {
+        val passportId = "000000001"
+        val valid = validatePassportId(passportId)
+
+        assertTrue(valid)
+    }
+
+    @Test
+    fun passport_id_is_not_valid_if_is_not_in_range() {
+        val passportId = "0123456789"
+        val valid = validatePassportId(passportId)
+
+        assertFalse(valid)
     }
 }
