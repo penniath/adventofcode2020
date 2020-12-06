@@ -1,10 +1,10 @@
-import java.io.File
+package day1
+
+import util.fetchData
 import java.lang.Integer.parseInt
 
-private fun fetchData(): ExpenseReport {
-    val file = File("src/main/resources/day1/input.txt")
-
-    return ExpenseReport(file.readLines().map { Item(parseInt(it)) })
+private fun parseExpenseReport(lines: List<String>): ExpenseReport {
+    return ExpenseReport(lines.map { Item(parseInt(it)) })
 }
 
 
@@ -12,7 +12,8 @@ private fun findMatch(combinations: List<Combination>) =
     combinations.find { it.sums2020() }
 
 fun main() {
-    val expenseReport = fetchData()
+    val lines = fetchData("src/main/resources/day1/input.txt")
+    val expenseReport = parseExpenseReport(lines)
 
     val combinationsTakingTwo = expenseReport.getCombinations(2)
     val matchTakingTwo = findMatch(combinationsTakingTwo)

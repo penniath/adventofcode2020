@@ -1,11 +1,7 @@
-import java.io.File
+package day2
+
+import util.fetchData
 import java.lang.Integer.parseInt
-
-private fun fetchData(): List<String> {
-    val file = File("src/main/resources/day2/input.txt")
-
-    return file.readLines()
-}
 
 private fun parseLogs(lines: List<String>, policyFn: (MatchResult) -> Policy): List<Log> {
     return lines.map { parseLog(it, policyFn) }
@@ -32,7 +28,7 @@ private var createPositionPolicy = { match: MatchResult ->
 }
 
 fun main() {
-    val lines = fetchData()
+    val lines = fetchData("src/main/resources/day2/input.txt")
     val countPolicyLogs = parseLogs(lines, createCountPolicy)
     println(countPolicyLogs.count { it.policyMatches })
 

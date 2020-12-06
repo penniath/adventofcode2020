@@ -3,12 +3,6 @@ package day4
 import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
-import parsePassport
-import validateBirthYear
-import validateEyeColor
-import validateHairColor
-import validateHeight
-import validatePassportId
 
 internal class Day4KtTest {
 

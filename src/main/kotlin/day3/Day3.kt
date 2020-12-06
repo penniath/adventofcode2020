@@ -1,10 +1,6 @@
-import java.io.File
+package day3
 
-private fun fetchData(): List<String> {
-    val file = File("src/main/resources/day3/input.txt")
-
-    return file.readLines()
-}
+import util.fetchData
 
 private fun buildMap(lines: List<String>): MapOfTrees {
     val map = MapOfTrees()
@@ -24,7 +20,7 @@ private val stepSevenRightOneDown: (Coordinate) -> Coordinate = { Coordinate(it.
 private val stepOneRightTwoDown: (Coordinate) -> Coordinate = { Coordinate(it.x + 1, it.y + 2) }
 
 fun main() {
-    val lines = fetchData()
+    val lines = fetchData("src/main/resources/day3/input.txt")
     val map = buildMap(lines)
     val journey = Journey(map)
     val foundTrees = journey.findTrees(stepThreeRightOneDown)

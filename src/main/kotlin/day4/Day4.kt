@@ -1,11 +1,7 @@
-import java.io.File
+package day4
+
+import util.fetchData
 import java.lang.Integer.parseInt
-
-private fun fetchData(): List<String> {
-    val file = File("src/main/resources/day4/input.txt")
-
-    return file.readLines()
-}
 
 private fun parsePassports(lines: List<String>): List<Passport> {
     val passportLines = mutableListOf<String>()
@@ -57,7 +53,7 @@ private fun readAttribute(line: String, attr: String): String? {
 }
 
 fun main() {
-    val lines = fetchData()
+    val lines = fetchData("src/main/resources/day4/input.txt")
     val passports = parsePassports(lines)
     val validPassports = passports.count { it.isValid() }
 
@@ -128,13 +124,13 @@ fun validateHairColor(hairColor: String?): Boolean {
     return !hairColor.isNullOrBlank() && "^#[0-9a-f]{6}$".toRegex().matches(hairColor)
 }
 
-fun validateEyeColor(eyeColor: String?) : Boolean {
+fun validateEyeColor(eyeColor: String?): Boolean {
     val validColors = listOf("amb", "blu", "brn", "gry", "grn", "hzl", "oth")
 
     return !eyeColor.isNullOrBlank() && validColors.contains(eyeColor)
 }
 
-fun validatePassportId(passportId: String?) : Boolean {
+fun validatePassportId(passportId: String?): Boolean {
     return !passportId.isNullOrBlank() && "^[0-9]{9}$".toRegex().matches(passportId)
 }
 
