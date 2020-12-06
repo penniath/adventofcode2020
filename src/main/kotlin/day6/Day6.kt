@@ -25,17 +25,22 @@ fun main() {
     val craftAnswers = parseCraftAnswers(lines)
 
     println(craftAnswers.sumGroupAnsweredQuestions())
+    println(craftAnswers.sumGroupEveryPassengerAnsweredQuestions())
 }
 
 class CraftAnswers {
-    private val answers: MutableList<GroupAnswers> = mutableListOf()
+    val answers: MutableList<GroupAnswers> = mutableListOf()
 
     fun add(answer: GroupAnswers) {
         answers.add(answer)
     }
 
-    fun sumGroupAnsweredQuestions() : Int {
+    fun sumGroupAnsweredQuestions(): Int {
         return answers.sumBy { it.differentMarkedAnswers() }
+    }
+
+    fun sumGroupEveryPassengerAnsweredQuestions(): Int {
+        return answers.sumBy { it.everyPassengerMarkedAnswers() }
     }
 }
 
@@ -48,6 +53,10 @@ class GroupAnswers {
 
     fun differentMarkedAnswers(): Int {
         return answers.flatMap { it.answers }.distinctBy { it.question }.count()
+    }
+
+    fun everyPassengerMarkedAnswers(): Int {
+        return answers.map { it.answers }.reduce { every, answers -> every.intersect(answers).toList() }.size
     }
 }
 

@@ -6,7 +6,30 @@ import org.junit.jupiter.api.Assertions.*
 internal class Day6KtTest {
 
     @Test
-    fun parseBoardingPass() {
+    fun sumGroupAnsweredQuestions() {
+        val craftAnswers = createCraftAnswers()
+
+        assertEquals(3, craftAnswers.answers[0].differentMarkedAnswers())
+        assertEquals(3, craftAnswers.answers[1].differentMarkedAnswers())
+        assertEquals(3, craftAnswers.answers[2].differentMarkedAnswers())
+        assertEquals(1, craftAnswers.answers[3].differentMarkedAnswers())
+        assertEquals(1, craftAnswers.answers[4].differentMarkedAnswers())
+        assertEquals(11, craftAnswers.sumGroupAnsweredQuestions())
+    }
+
+    @Test
+    fun everyGroupAnsweredQuestions() {
+        val craftAnswers = createCraftAnswers()
+
+        assertEquals(3, craftAnswers.answers[0].everyPassengerMarkedAnswers())
+        assertEquals(0, craftAnswers.answers[1].everyPassengerMarkedAnswers())
+        assertEquals(1, craftAnswers.answers[2].everyPassengerMarkedAnswers())
+        assertEquals(1, craftAnswers.answers[3].everyPassengerMarkedAnswers())
+        assertEquals(1, craftAnswers.answers[4].everyPassengerMarkedAnswers())
+        assertEquals(6, craftAnswers.sumGroupEveryPassengerAnsweredQuestions())
+    }
+
+    private fun createCraftAnswers(): CraftAnswers {
         val craftAnswers = CraftAnswers()
         val group1 = GroupAnswers()
         group1.add(PassengerAnswers(listOf(Answer("a"), Answer("b"), Answer("c"))))
@@ -34,11 +57,6 @@ internal class Day6KtTest {
         group5.add(PassengerAnswers(listOf(Answer("b"))))
         craftAnswers.add(group5)
 
-        assertEquals(3, group1.differentMarkedAnswers())
-        assertEquals(3, group2.differentMarkedAnswers())
-        assertEquals(3, group3.differentMarkedAnswers())
-        assertEquals(1, group4.differentMarkedAnswers())
-        assertEquals(1, group5.differentMarkedAnswers())
-        assertEquals(11, craftAnswers.sumGroupAnsweredQuestions())
+        return craftAnswers
     }
 }
